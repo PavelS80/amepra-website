@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -49,19 +50,15 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-all duration-300 group-hover:scale-110"
-                style={{
-                  background: "linear-gradient(135deg, #A08040, #C8A96E, #E2C07C)",
-                  color: "#06080E",
-                }}
-              >
-                A
-              </div>
-              <span className="text-lg font-bold tracking-tight text-white">
-                AMEPRA
-              </span>
+            <Link href="/" className="flex items-center group">
+              <Image
+                src="/logo.png"
+                alt="AMEPRA"
+                width={130}
+                height={48}
+                className="h-9 w-auto transition-opacity duration-300 group-hover:opacity-80"
+                priority
+              />
             </Link>
 
             {/* Desktop nav */}

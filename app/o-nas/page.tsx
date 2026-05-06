@@ -8,13 +8,6 @@ export const metadata: Metadata = {
   description: "Více než 16 let exkluzivně v zdravotnictví. Poznejte historii, hodnoty a tým marketingové agentury AMEPRA.",
 };
 
-const values = [
-  { title: "Etický přístup", description: "Respektujeme etické kodexy a regulatorní požadavky platné ve zdravotnictví. Pracujeme transparentně a odpovědně." },
-  { title: "Odbornost", description: "Náš tým tvoří specialisté s hlubokými znalostmi zdravotnického sektoru — od farmaceutického marketingu po organizaci kongresů." },
-  { title: "Inovace", description: "Sledujeme nejnovější trendy — VR aplikace, hybridní akce, interaktivní platformy — a integrujeme je do každého projektu." },
-  { title: "Partnerství", description: "Kommunikujeme jako partner, ne jako dodavatel. Váš úspěch je naším cílem." },
-];
-
 const milestones = [
   { year: "2008", event: "Založení společnosti AMEPRA v Praze" },
   { year: "2010", event: "Rozšíření portfolia o digitální komunikaci" },
@@ -28,58 +21,79 @@ const milestones = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section
-        className="relative pt-36 pb-24 overflow-hidden noise-overlay"
-        style={{ background: "linear-gradient(160deg, #06080E 0%, #0A1220 60%, #06080E 100%)" }}
-      >
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 20% 50%, rgba(64,128,255,0.07), transparent)" }} />
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      {/* HERO — full viewport, massive typography */}
+      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden noise-overlay" style={{ background: "#06080E" }}>
+        {/* Giant background year */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none font-display font-bold leading-none"
+          style={{ fontSize: "clamp(160px, 28vw, 380px)", color: "rgba(200,169,110,0.04)", whiteSpace: "nowrap" }}
+        >
+          2008
+        </div>
+        {/* Diagonal gold accent line */}
+        <div className="absolute top-0 right-0 w-px h-full opacity-20" style={{ background: "linear-gradient(to bottom, transparent, #C8A96E 40%, transparent)" }} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-24 pt-48">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: "#C8A96E" }}>Společnost</p>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] mb-6" style={{ color: "#F0EDE6" }}>
-              O nás
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: "#C8A96E" }}>O společnosti</p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h1 className="font-display font-bold leading-[0.95] mb-0" style={{ fontSize: "clamp(64px, 10vw, 140px)", color: "#F0EDE6" }}>
+              Zdravotnictví<br />
+              <em className="not-italic shimmer-gold">je náš svět.</em>
             </h1>
-            <p className="text-lg max-w-2xl" style={{ color: "rgba(240,237,230,0.5)" }}>
-              Jsme marketingová a produkční agentura s exkluzivním zaměřením na zdravotnický sektor. Od roku 2008.
-            </p>
+          </FadeIn>
+          <FadeIn delay={0.25}>
+            <div className="mt-10 max-w-xl">
+              <p className="text-lg leading-relaxed" style={{ color: "rgba(240,237,230,0.5)" }}>
+                Od roku 2008 se pohybujeme výhradně v prostoru zdravotnického marketingu. Žádné kompromisy, žádné odbočky — jen hluboká specializace, která přináší výsledky.
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Stats inline */}
+          <FadeIn delay={0.35}>
+            <div className="flex flex-wrap gap-12 mt-16 pt-10" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+              {[
+                { to: 16, suffix: "+", label: "let na trhu" },
+                { to: 100, suffix: "+", label: "kongresů" },
+                { to: 50, suffix: "+", label: "klientů" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div className="font-display text-5xl font-bold gradient-text mb-1">
+                    <Counter to={s.to} suffix={s.suffix} />
+                  </div>
+                  <p className="text-sm" style={{ color: "rgba(240,237,230,0.4)" }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* Mission + Stats */}
-      <section className="py-24 md:py-32" style={{ backgroundColor: "#090D1A" }}>
+      {/* MANIFESTO — bold editorial section */}
+      <section className="py-32 md:py-40" style={{ backgroundColor: "#090D1A" }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <FadeIn>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: "#C8A96E" }}>Naše poslání</p>
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-[1.1]" style={{ color: "#F0EDE6" }}>
-                Specializace, která<br /><em className="not-italic shimmer-gold">přináší výsledky</em>
-              </h2>
-              <div className="space-y-5 text-base leading-relaxed" style={{ color: "rgba(240,237,230,0.55)" }}>
-                <p>AMEPRA je marketingová a produkční agentura, která od svého vzniku v roce 2008 působí výhradně v zdravotnickém sektoru. Tato exkluzivní specializace nám umožňuje nabídnout hlubší znalosti a výsledky, které generalisté jednoduše nemohou dosáhnout.</p>
-                <p>Spolupracujeme s farmaceutickými společnostmi, odbornými lékařskými společnostmi, státními institucemi a zdravotnickými neziskovými organizacemi.</p>
-                <p>Za více než 16 let jsme realizovali přes 100 kongresů a konferencí. Každý s naprosto jedinečným, etickým a profesionálním přístupem.</p>
-              </div>
-            </FadeIn>
-
-            <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-4 lg:sticky lg:top-32">
+              <FadeIn>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: "#C8A96E" }}>Naše poslání</p>
+                <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.05]" style={{ color: "#F0EDE6" }}>
+                  Specializace,<br />která<br /><em className="not-italic shimmer-gold">rozhoduje.</em>
+                </h2>
+              </FadeIn>
+            </div>
+            <div className="lg:col-span-8 space-y-8">
               {[
-                { to: 16, suffix: "+", label: "let na trhu", desc: "Nepřetržité působení" },
-                { to: 100, suffix: "+", label: "kongresů", desc: "Úspěšně realizováno" },
-                { to: 50, suffix: "+", label: "klientů", desc: "Spokojených partnerů" },
-                { to: 7, suffix: "", label: "specializací", desc: "Komplexní pokrytí" },
-              ].map((stat, i) => (
-                <FadeIn key={stat.label} delay={i * 0.1}>
-                  <div
-                    className="p-6 rounded-2xl"
-                    style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}
-                  >
-                    <div className="font-display text-4xl font-bold mb-1 gradient-text">
-                      <Counter to={stat.to} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-sm font-semibold mb-0.5" style={{ color: "#F0EDE6" }}>{stat.label}</div>
-                    <p className="text-xs" style={{ color: "rgba(240,237,230,0.35)" }}>{stat.desc}</p>
+                { lead: "Exkluzivní focus.", body: "AMEPRA funguje výhradně v zdravotnickém sektoru. Tento záměrný výběr nám umožňuje hluboce rozumět regulatornímu prostředí, potřebám lékařů i logice farmaceutického trhu." },
+                { lead: "Etika v centru.", body: "Respektujeme etické kodexy a regulatorní požadavky. V prostředí, kde každé sdělení musí projít přísným schválením, je naše zkušenost neocenitelnou výhodou." },
+                { lead: "Partnerství místo dodavatelství.", body: "Spolupracujeme s farmaceutickými společnostmi, odbornými lékařskými společnostmi, státními institucemi a zdravotnickými neziskovými organizacemi jako skuteční partneři." },
+                { lead: "Inovace s rozvahou.", body: "VR aplikace, hybridní akce, interaktivní platformy — integrujeme nejnovější formáty tam, kde skutečně přinášejí hodnotu, ne proto, aby to vypadalo moderně." },
+              ].map((item, i) => (
+                <FadeIn key={item.lead} delay={i * 0.1}>
+                  <div className="p-8 rounded-2xl" style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}>
+                    <h3 className="font-display text-xl font-bold mb-3" style={{ color: "#C8A96E" }}>{item.lead}</h3>
+                    <p className="text-base leading-relaxed" style={{ color: "rgba(240,237,230,0.55)" }}>{item.body}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -88,73 +102,54 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-24 md:py-32" style={{ backgroundColor: "#06080E" }}>
+      {/* TIMELINE — bold vertical with huge years */}
+      <section className="py-32 overflow-hidden" style={{ backgroundColor: "#06080E" }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-16">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: "#C8A96E" }}>Naše hodnoty</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold" style={{ color: "#F0EDE6" }}>Co nás definuje</h2>
-            </div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: "#C8A96E" }}>Historie</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-20" style={{ color: "#F0EDE6" }}>Naše milníky</h2>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((v, i) => (
-              <FadeIn key={v.title} delay={i * 0.08}>
+          <div className="space-y-0">
+            {milestones.map((m, i) => (
+              <FadeIn key={m.year} delay={i * 0.06}>
                 <div
-                  className="p-7 rounded-2xl h-full glass-card"
+                  className="group grid grid-cols-12 gap-6 py-8 transition-colors duration-300"
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
                 >
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: "rgba(200,169,110,0.1)" }}>
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#C8A96E" }} />
+                  {/* Year — huge */}
+                  <div className="col-span-3 md:col-span-2">
+                    <span
+                      className="font-display font-bold transition-colors duration-300 group-hover:text-[#C8A96E]"
+                      style={{ fontSize: "clamp(28px, 4vw, 52px)", color: "rgba(200,169,110,0.2)", lineHeight: 1 }}
+                    >
+                      {m.year}
+                    </span>
                   </div>
-                  <h3 className="text-base font-bold mb-3" style={{ color: "#F0EDE6" }}>{v.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(240,237,230,0.45)" }}>{v.description}</p>
+                  {/* Dot */}
+                  <div className="col-span-1 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-150" style={{ backgroundColor: "#C8A96E", opacity: 0.4 }} />
+                  </div>
+                  {/* Event */}
+                  <div className="col-span-8 md:col-span-9 flex items-center">
+                    <p className="text-lg md:text-xl font-medium transition-colors duration-300 group-hover:text-white" style={{ color: "rgba(240,237,230,0.6)" }}>{m.event}</p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-24 md:py-32" style={{ backgroundColor: "#090D1A" }}>
-        <div className="max-w-3xl mx-auto px-5 sm:px-8">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: "#C8A96E" }}>Historie</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold" style={{ color: "#F0EDE6" }}>Naše milníky</h2>
-            </div>
-          </FadeIn>
-          <div className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, transparent, rgba(200,169,110,0.3), transparent)" }} />
-            <div className="space-y-8">
-              {milestones.map((m, i) => (
-                <FadeIn key={m.year} delay={i * 0.07}>
-                  <div className="flex gap-6">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 relative z-10"
-                      style={{ backgroundColor: "#0C1120", border: "1px solid rgba(200,169,110,0.3)", color: "#C8A96E" }}
-                    >
-                      &apos;{m.year.slice(2)}
-                    </div>
-                    <div className="pt-2.5">
-                      <span className="text-[10px] font-semibold uppercase tracking-widest block mb-1" style={{ color: "rgba(200,169,110,0.5)" }}>{m.year}</span>
-                      <p className="text-base font-medium" style={{ color: "#F0EDE6" }}>{m.event}</p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} />
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080C18, #0C1525)" }}>
+      <section className="py-32 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080C18, #0C1525)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 80% at 50% 50%, rgba(200,169,110,0.06), transparent)" }} />
-        <div className="max-w-3xl mx-auto px-5 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-5 text-center relative z-10">
           <FadeIn>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Chcete s námi spolupracovat?</h2>
-            <p className="mb-8" style={{ color: "rgba(240,237,230,0.5)" }}>Ozvěte se nám a probereme vaše potřeby.</p>
+            <h2 className="font-display font-bold mb-6" style={{ fontSize: "clamp(36px, 5vw, 64px)", color: "#F0EDE6", lineHeight: 1.05 }}>
+              Chcete s námi<br /><em className="not-italic shimmer-gold">spolupracovat?</em>
+            </h2>
+            <p className="text-lg mb-10" style={{ color: "rgba(240,237,230,0.5)" }}>Ozvěte se nám a probereme vaše potřeby.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/kontakt" className="px-8 py-4 rounded-xl text-sm font-semibold btn-gold">Kontaktovat nás</Link>
               <Link href="/sluzby" className="px-8 py-4 rounded-xl text-sm font-medium btn-outline">Naše služby</Link>
