@@ -1,128 +1,138 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 
 export const metadata: Metadata = {
   title: "Reference – AMEPRA",
-  description: "Case studies, ohlasy klientů a portfolio projektů agentury AMEPRA ze zdravotnického sektoru.",
+  description: "Klienti a reference agentury AMEPRA — farmaceutické společnosti, odborné lékařské společnosti a zdravotnické instituce.",
 };
 
-const cases = [
+const pharmaClients = [
   {
-    category: "Kongres", size: "large",
-    title: "Výroční kongres s mezinárodní účastí",
-    description: "Organizace třídenního odborného kongresu s 800+ účastníky, 40 přednášejícími a 12 satelitními sympoziemi. Kompletní zajištění od místa konání po gala večer.",
-    metrics: [{ val: "800+", label: "účastníků" }, { val: "40", label: "přednášejících" }, { val: "12", label: "sympozií" }, { val: "3", label: "dny" }],
+    name: "Novo Nordisk", src: "/images/clients/novo-nordisk.png",
+    desc: "Novo Nordisk měníme diabetes. Diabetologické semináře, edukační programy pro lékaře.",
+    tags: ["Diabetologie", "Semináře", "Edukace"],
   },
   {
-    category: "Digitální komunikace", size: "small",
-    title: "Série vzdělávacích webinářů s akreditací",
-    description: "Roční vzdělávací program pro lékaře. 24 webinářů, vlastní platforma s certifikací.",
-    metrics: [{ val: "24", label: "webinářů" }, { val: "350", label: "účastníků/web." }],
+    name: "Roche", src: "/images/clients/roche.png",
+    desc: "Lídr v oblasti zdravotnického výzkumu. Kongresová sympozia, edukační akce.",
+    tags: ["Onkologie", "Diagnostika", "Symposia"],
   },
   {
-    category: "Reklama", size: "small",
-    title: "Komunikační kampaň — uvedení nového léku",
-    description: "Kreativní strategie a realizace kampaně pro HCP. Multi-channel přístup, regulatorní schválení.",
-    metrics: [{ val: "3", label: "měsíce" }, { val: "Multi", label: "channel" }],
+    name: "Amgen", src: "/images/clients/amgen.png",
+    desc: "Největší biotechnologická společnost v oblasti farmacie na světě. Kongres ČKS, edukační portál.",
+    tags: ["Kardiologie", "Onkologie", "Kongres"],
+  },
+  {
+    name: "Novartis", src: "/images/clients/novartis.png",
+    desc: "Globální farmaceutický lídr. Satelitní sympozia, vzdělávací programy.",
+    tags: ["Sympozia", "Vzdělávání", "Multi-channel"],
+  },
+  {
+    name: "AbbVie", src: "/images/clients/abbvie.png",
+    desc: "Inovativní farmaceutická společnost. Kreativní kampaně a odborné akce.",
+    tags: ["Imunologie", "Reklama", "Akce"],
+  },
+  {
+    name: "GSK", src: "/images/clients/gsk.png",
+    desc: "GlaxoSmithKline — globální zdravotnická společnost. Kongresy a produktové launche.",
+    tags: ["Vakcíny", "Kongresy", "Produkce"],
+  },
+  {
+    name: "Janssen", src: "/images/clients/janssen.jpg",
+    desc: "Farmaceutická divize Johnson & Johnson. Odborná sympozia a vzdělávací akce.",
+    tags: ["Sympozia", "HCP", "Edukace"],
+  },
+  {
+    name: "Takeda", src: "/images/clients/takeda.png",
+    desc: "Japonský farmaceutický gigant. Konference a digitální komunikace.",
+    tags: ["Gastroenterologie", "Konference", "Digital"],
+  },
+  {
+    name: "Boehringer Ingelheim", src: "/images/clients/bi.png",
+    desc: "Rodinná farmaceutická společnost. Satelitní sympozia a výstavní expozice.",
+    tags: ["Respirologie", "Expozice", "Sympozia"],
+  },
+  {
+    name: "Teva", src: "/images/clients/teva.png",
+    desc: "Globální generický a specialty farmaceutický lídr.",
+    tags: ["Neurologie", "Akce", "Marketing"],
+  },
+  {
+    name: "Lilly", src: "/images/clients/lilly.gif",
+    desc: "Eli Lilly — inovativní farmaceutická společnost.",
+    tags: ["Diabetologie", "Onkologie", "Produkce"],
+  },
+  {
+    name: "Bristol-Myers Squibb", src: "/images/clients/bms.jpg",
+    desc: "Přední biofarmaceutická společnost specializující se na onkologii.",
+    tags: ["Onkologie", "Imuno-onkologie", "Kongresy"],
   },
 ];
 
-const testimonials = [
-  {
-    quote: "Spolupráce s AMEPRA přinesla našemu kongresu novou úroveň profesionality. Od logistiky po vědecký program — vše proběhlo bez problémů.",
-    author: "Prof. MUDr. Jan Novák",
-    role: "Předseda vědeckého výboru",
-    org: "Česká kardiologická společnost",
-    initial: "N",
-  },
-  {
-    quote: "AMEPRA rozumí specifickému prostředí farmaceutického průmyslu. Jejich kreativní kampaně respektují regulatorní požadavky a přitom jsou skutečně efektivní.",
-    author: "Mgr. Petra Horáčková",
-    role: "Marketing Director",
-    org: "Farmaceutická společnost",
-    initial: "H",
-  },
-  {
-    quote: "Technické zajištění bylo na světové úrovni. Hybridní formát s živým přenosem zvládli perfektně — účastníci z celé Evropy.",
-    author: "MUDr. Tomáš Blaha",
-    role: "Organizátor konference",
-    org: "Odborná společnost neurologie",
-    initial: "B",
-  },
+const medSocieties = [
+  { name: "Česká psychiatrická společnost", src: "/images/clients/cneos.png", desc: "Sekce sociální psychiatrie — vzdělávací akce a konference." },
+  { name: "Česká neonatologická společnost", src: "/images/clients/cneos.png", desc: "Odborná společnost ČLS JEP — kongresové služby." },
+  { name: "DNSG", src: "/images/clients/dnsg.png", desc: "Diabetes and Nutrition Study Group — mezinárodní sympozium." },
+  { name: "EATA", src: "/images/clients/eata.png", desc: "European TA Association — kongresová produkce." },
 ];
 
 export default function ReferencePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-[70vh] flex flex-col justify-end overflow-hidden noise-overlay" style={{ background: "#06080E" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 70% at 20% 60%, rgba(200,169,110,0.06), transparent)" }} />
-        {/* Big background text */}
-        <div className="absolute top-1/2 -translate-y-1/2 right-0 font-display font-bold select-none pointer-events-none leading-none" style={{ fontSize: "clamp(120px, 20vw, 280px)", color: "rgba(200,169,110,0.04)" }}>REF</div>
-        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-20 pt-48">
+      <section className="relative min-h-[70vh] flex flex-col justify-end overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/images/hero-conference.png" alt="Reference AMEPRA" fill className="object-cover object-center" priority />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,8,14,0.6) 0%, rgba(6,8,14,0.75) 50%, rgba(6,8,14,0.97) 100%)" }} />
+        </div>
+        <div className="absolute top-1/2 -translate-y-1/2 right-8 font-display font-bold select-none pointer-events-none leading-none" style={{ fontSize: "clamp(100px, 18vw, 260px)", color: "rgba(200,169,110,0.05)" }}>REF</div>
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-20 pt-48 w-full">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: "#C8A96E" }}>Portfolio</p>
-            <h1 className="font-display font-bold leading-[0.95]" style={{ fontSize: "clamp(56px, 9vw, 128px)", color: "#F0EDE6" }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: "#C8A96E" }}>Portfolio klientů</p>
+            <h1 className="font-display font-bold leading-[0.95]" style={{ fontSize: "clamp(52px, 8vw, 112px)", color: "#F0EDE6" }}>
               Výsledky,<br /><em className="not-italic shimmer-gold">které mluví.</em>
             </h1>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-lg mt-8 max-w-xl" style={{ color: "rgba(240,237,230,0.5)" }}>
-              Přes 16 let budujeme důvěru skrze výsledky. Prohlédněte si ukázky naší práce.
+            <p className="text-lg mt-8 max-w-xl" style={{ color: "rgba(240,237,230,0.6)" }}>
+              Desítky spokojených klientů z řad farmaceutických firem a odborných lékařských společností — TOP agentura na českém a slovenském trhu.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* CASE STUDIES — asymmetric layout */}
+      {/* PHARMA CLIENTS */}
       <section className="py-24 md:py-32" style={{ backgroundColor: "#090D1A" }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: "#C8A96E" }}>Vybrané projekty</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-16" style={{ color: "#F0EDE6" }}>Case studies</h2>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: "#C8A96E" }}>Farmaceutické společnosti</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-16" style={{ color: "#F0EDE6" }}>Naši klienti</h2>
           </FadeIn>
 
-          {/* Large featured case */}
-          <FadeIn>
-            <div className="rounded-3xl overflow-hidden mb-5" style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}>
-              <div className="h-1.5" style={{ background: "linear-gradient(90deg, #A08040, #C8A96E, #E2C07C, #C8A96E)" }} />
-              <div className="p-10 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <span className="text-[10px] font-semibold uppercase tracking-widest mb-4 block" style={{ color: "#C8A96E" }}>{cases[0].category}</span>
-                  <h3 className="font-display text-3xl md:text-4xl font-bold mb-5" style={{ color: "#F0EDE6" }}>{cases[0].title}</h3>
-                  <p className="text-base leading-relaxed" style={{ color: "rgba(240,237,230,0.55)" }}>{cases[0].description}</p>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  {cases[0].metrics.map((m) => (
-                    <div key={m.label} className="p-6 rounded-2xl text-center" style={{ backgroundColor: "rgba(200,169,110,0.06)", border: "1px solid rgba(200,169,110,0.12)" }}>
-                      <div className="font-display text-4xl font-bold mb-1 gradient-text">{m.val}</div>
-                      <div className="text-xs uppercase tracking-widest" style={{ color: "rgba(200,169,110,0.6)" }}>{m.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Two smaller cases */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {cases.slice(1).map((cs, i) => (
-              <FadeIn key={cs.title} delay={i * 0.1}>
-                <div className="h-full rounded-2xl overflow-hidden" style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}>
-                  <div className="h-1" style={{ background: "linear-gradient(90deg, #A08040, #C8A96E)" }} />
-                  <div className="p-8">
-                    <span className="text-[10px] font-semibold uppercase tracking-widest mb-3 block" style={{ color: "#C8A96E" }}>{cs.category}</span>
-                    <h3 className="font-display text-xl font-bold mb-3" style={{ color: "#F0EDE6" }}>{cs.title}</h3>
-                    <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(240,237,230,0.5)" }}>{cs.description}</p>
-                    <div className="flex gap-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                      {cs.metrics.map((m) => (
-                        <div key={m.label}>
-                          <div className="font-display text-2xl font-bold gradient-text">{m.val}</div>
-                          <div className="text-xs" style={{ color: "rgba(240,237,230,0.35)" }}>{m.label}</div>
-                        </div>
-                      ))}
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {pharmaClients.map((client, i) => (
+              <FadeIn key={client.name} delay={i * 0.05}>
+                <div className="group p-7 rounded-2xl h-full transition-all duration-300 hover:-translate-y-1" style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  {/* Logo */}
+                  <div className="h-12 flex items-center mb-5">
+                    <Image
+                      src={client.src}
+                      alt={client.name}
+                      width={140}
+                      height={48}
+                      className="max-h-10 w-auto object-contain"
+                      style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
+                    />
+                  </div>
+                  <div className="h-px mb-5" style={{ backgroundColor: "rgba(255,255,255,0.07)" }} />
+                  <h3 className="text-sm font-bold mb-2" style={{ color: "#F0EDE6" }}>{client.name}</h3>
+                  <p className="text-xs leading-relaxed mb-4" style={{ color: "rgba(240,237,230,0.45)" }}>{client.desc}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {client.tags.map((tag) => (
+                      <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: "rgba(200,169,110,0.08)", color: "#C8A96E", border: "1px solid rgba(200,169,110,0.15)" }}>{tag}</span>
+                    ))}
                   </div>
                 </div>
               </FadeIn>
@@ -131,50 +141,43 @@ export default function ReferencePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS — large editorial quotes */}
-      <section className="py-24 md:py-32 overflow-hidden" style={{ backgroundColor: "#06080E" }}>
+      {/* MEDICAL SOCIETIES */}
+      <section className="py-24 md:py-28" style={{ backgroundColor: "#06080E" }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <FadeIn>
-            <div className="mb-16">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: "#C8A96E" }}>Co říkají klienti</p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold" style={{ color: "#F0EDE6" }}>Ohlasy partnerů</h2>
-            </div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: "#C8A96E" }}>Odborné společnosti a organizace</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-12" style={{ color: "#F0EDE6" }}>Lékařské společnosti</h2>
           </FadeIn>
-
-          <div className="space-y-0">
-            {testimonials.map((t, i) => (
-              <FadeIn key={t.author} delay={i * 0.1}>
-                <div
-                  className="group py-12 md:py-16 grid grid-cols-12 gap-8 transition-all duration-300"
-                  style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  {/* Large quote mark */}
-                  <div className="col-span-12 md:col-span-1 flex items-start">
-                    <span className="font-display text-7xl leading-none select-none" style={{ color: "rgba(200,169,110,0.15)" }}>&ldquo;</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {medSocieties.map((s, i) => (
+              <FadeIn key={s.name} delay={i * 0.08}>
+                <div className="p-6 rounded-2xl h-full" style={{ backgroundColor: "#0C1120", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: "rgba(200,169,110,0.1)" }}>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#C8A96E" }} />
                   </div>
-                  {/* Quote */}
-                  <div className="col-span-12 md:col-span-7">
-                    <blockquote className="font-display text-xl md:text-2xl font-medium leading-relaxed mb-6" style={{ color: "rgba(240,237,230,0.8)" }}>
-                      {t.quote}
-                    </blockquote>
-                  </div>
-                  {/* Author */}
-                  <div className="col-span-12 md:col-span-4 flex md:justify-end items-start md:pt-2">
-                    <div className="flex items-center gap-4">
-                      <div className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ background: "linear-gradient(135deg, #A08040, #C8A96E)", color: "#06080E" }}>
-                        {t.initial}
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold" style={{ color: "#F0EDE6" }}>{t.author}</div>
-                        <div className="text-xs mt-0.5" style={{ color: "rgba(240,237,230,0.4)" }}>{t.role}</div>
-                        <div className="text-xs" style={{ color: "rgba(200,169,110,0.5)" }}>{t.org}</div>
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="text-sm font-bold mb-2" style={{ color: "#F0EDE6" }}>{s.name}</h3>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(240,237,230,0.45)" }}>{s.desc}</p>
                 </div>
               </FadeIn>
             ))}
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} />
+          </div>
+        </div>
+      </section>
+
+      {/* LOGO WALL */}
+      <section className="py-20" style={{ backgroundColor: "#090D1A" }}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <FadeIn>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] mb-12 text-center" style={{ color: "rgba(200,169,110,0.4)" }}>Všichni klienti</p>
+          </FadeIn>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 items-center">
+            {pharmaClients.map((c, i) => (
+              <FadeIn key={c.name + "-wall"} delay={i * 0.04}>
+                <div className="flex items-center justify-center h-10 opacity-20 hover:opacity-50 transition-opacity duration-300">
+                  <Image src={c.src} alt={c.name} width={110} height={40} className="max-h-8 w-auto object-contain" style={{ filter: "brightness(0) invert(1)" }} />
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
@@ -184,9 +187,9 @@ export default function ReferencePage() {
         <div className="max-w-4xl mx-auto px-5 text-center relative z-10">
           <FadeIn>
             <h2 className="font-display font-bold mb-6" style={{ fontSize: "clamp(32px, 4.5vw, 56px)", color: "#F0EDE6", lineHeight: 1.1 }}>
-              Staňte se naším<br /><em className="not-italic shimmer-gold">dalším úspěchem.</em>
+              Staňte se naším<br /><em className="not-italic shimmer-gold">dalším klientem.</em>
             </h2>
-            <p className="text-lg mb-10" style={{ color: "rgba(240,237,230,0.5)" }}>Rádi přidáme váš projekt do portfolia.</p>
+            <p className="text-lg mb-10" style={{ color: "rgba(240,237,230,0.5)" }}>Rádi přivítáme váš projekt do portfolia.</p>
             <Link href="/kontakt" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold btn-gold">Kontaktovat nás</Link>
           </FadeIn>
         </div>
