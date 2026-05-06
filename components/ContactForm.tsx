@@ -1,33 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
+import { sendContactEmail, type ContactFormState } from "@/app/actions/contact";
+
+const initialState: ContactFormState = { status: "idle" };
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    subject: "",
-    message: "",
-  });
+  const [state, formAction, isPending] = useActionState(sendContactEmail, initialState);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
-    // Simulate async submit — replace with real API call
-    await new Promise((r) => setTimeout(r, 1200));
-    setStatus("sent");
-  };
-
-  if (status === "sent") {
+  if (state.status === "success") {
     return (
       <div className="rounded-2xl p-10 text-center border border-slate-100 bg-slate-50">
         <div
@@ -42,17 +23,17 @@ export default function ContactForm() {
           Zpráva odeslána
         </h3>
         <p className="text-sm" style={{ color: "#64748b" }}>
-          Děkujeme za váš zájem. Ozveme se vám co nejdříve.
+          Děkujeme za váš zájem. Ozveme se vám co nejdříve — zpravidla do 24 hodin v pracovní dny.
         </p>
       </div>
     );
   }
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 transition-colors focus:outline-none focus:ring-2 focus:border-transparent bg-white";
+    "w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 bg-white disabled:opacity-60";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form action={formAction} className="space-y-5" noValidate>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1.5">
@@ -63,11 +44,9 @@ export default function ContactForm() {
             name="name"
             type="text"
             required
-            value={form.name}
-            onChange={handleChange}
+            disabled={isPending}
             placeholder="Jan Novák"
             className={inputClass}
-            style={{ "--tw-ring-color": "#1e73be" } as React.CSSProperties}
           />
         </div>
         <div>
@@ -79,8 +58,7 @@ export default function ContactForm() {
             name="email"
             type="email"
             required
-            value={form.email}
-            onChange={handleChange}
+            disabled={isPending}
             placeholder="jan@spolecnost.cz"
             className={inputClass}
           />
@@ -93,8 +71,7 @@ export default function ContactForm() {
             id="phone"
             name="phone"
             type="tel"
-            value={form.phone}
-            onChange={handleChange}
+            disabled={isPending}
             placeholder="+420 000 000 000"
             className={inputClass}
           />
@@ -107,8 +84,7 @@ export default function ContactForm() {
             id="company"
             name="company"
             type="text"
-            value={form.company}
-            onChange={handleChange}
+            disabled={isPending}
             placeholder="Název společnosti"
             className={inputClass}
           />
@@ -122,8 +98,7 @@ export default function ContactForm() {
         <select
           id="subject"
           name="subject"
-          value={form.subject}
-          onChange={handleChange}
+          disabled={isPending}
           className={inputClass}
         >
           <option value="">Vyberte oblast</option>
@@ -145,24 +120,47 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          value={form.message}
-          onChange={handleChange}
+          disabled={isPending}
           placeholder="Popište nám váš projekt nebo dotaz..."
           className={`${inputClass} resize-none`}
         />
       </div>
 
+      {state.status === "error" && (
+        <div
+          className="flex items-start gap-3 px-4 py-3 rounded-xl text-sm"
+          style={{ backgroundColor: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca" }}
+        >
+          <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+          {state.message}
+        </div>
+      )}
+
       <button
         type="submit"
-        disabled={status === "sending"}
-        className="w-full py-4 rounded-xl text-sm font-semibold text-white transition-all duration-200 disabled:opacity-70 hover:opacity-90"
+        disabled={isPending}
+        className="w-full py-4 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         style={{ backgroundColor: "#0c1b33" }}
       >
-        {status === "sending" ? "Odesílám..." : "Odeslat zprávu"}
+        {isPending ? (
+          <>
+            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            Odesílám...
+          </>
+        ) : (
+          "Odeslat zprávu"
+        )}
       </button>
 
       <p className="text-xs text-center" style={{ color: "#94a3b8" }}>
-        Odesláním souhlasíte se zpracováním osobních údajů.
+        Odesláním souhlasíte se{" "}
+        <span style={{ color: "#64748b" }}>zpracováním osobních údajů</span>{" "}
+        za účelem odpovědi na váš dotaz.
       </p>
     </form>
   );

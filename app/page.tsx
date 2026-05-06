@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceCard from "@/components/ServiceCard";
+import FadeIn from "@/components/FadeIn";
 
 const services = [
   {
@@ -132,6 +133,7 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+          <FadeIn delay={0}>
           <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest mb-8"
             style={{
@@ -143,13 +145,17 @@ export default function HomePage() {
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#d4a843" }} />
             Zdravotnický marketing · Od roku 2008
           </div>
+          </FadeIn>
 
+          <FadeIn delay={0.1}>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6">
             Marketing a produkce
             <br />
             <span style={{ color: "#4ba8ec" }}>pro zdravotnictví</span>
           </h1>
+          </FadeIn>
 
+          <FadeIn delay={0.2}>
           <p
             className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
             style={{ color: "rgba(255,255,255,0.65)" }}
@@ -157,6 +163,7 @@ export default function HomePage() {
             AMEPRA je přední česká agentura exkluzivně zaměřená na farmaceutický
             průmysl, odborné lékařské společnosti a zdravotnické instituce.
           </p>
+          </FadeIn>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -197,14 +204,18 @@ export default function HomePage() {
       {/* ─── SERVICES ─── */}
       <section className="py-20 md:py-28 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Naše služby"
-            title="Komplexní řešení pro zdravotnický sektor"
-            subtitle="Od organizace kongresů po digitální kampaně — poskytujeme vše, co vaše organizace potřebuje k úspěšné komunikaci a prezentaci."
-          />
+          <FadeIn>
+            <SectionHeader
+              eyebrow="Naše služby"
+              title="Komplexní řešení pro zdravotnický sektor"
+              subtitle="Od organizace kongresů po digitální kampaně — poskytujeme vše, co vaše organizace potřebuje k úspěšné komunikaci a prezentaci."
+            />
+          </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+            {services.map((service, i) => (
+              <FadeIn key={service.title} delay={i * 0.06}>
+                <ServiceCard {...service} />
+              </FadeIn>
             ))}
           </div>
           <div className="mt-10 text-center">
